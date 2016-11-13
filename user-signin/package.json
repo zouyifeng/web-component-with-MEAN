@@ -1,0 +1,11 @@
+{
+	"name": "web-component-with-MEAN",
+    "version": "1.0.0",
+    "description": "express+mongodb+angular+node",
+    "devDependencies": {
+      "connect-mongo": "^1.3.2",
+      "ejs": "^2.5.2",
+      "express": "^4.14.0",
+      "mongoose": "^4.6.7"
+    }
+}
