@@ -2,12 +2,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var expressSession = require('express-session');
-var mongooseStore = require('connect-mongo')({session: expressSession});
+var mongoStore = require('connect-mongo')(expressSession);
 var mongoose = require('mongoose');
 
 require('./models/users_model.js');
-
-var conn = mongoose.connect('monogodb://localhost/myapp');
 
 var app = express();
 
@@ -15,16 +13,36 @@ app.engine('.html', require('ejs').__express);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'html');
-app.use(bodyParser());
+// app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({	extended: true }));
+app.use(bodyParser.json());
+
 app.use(cookieParser());
-app.use(expressSession({
-	secret: 'SECRET',
-	cookie: { maxAge; 60*60*1000 },
-	store: new mongoStore({
-		db: mongoose.connection.db,
-		collection: 'sessions'
-	})
-}));
+
+mongoose.connect('mongodb://localhost:27017/myapp', function(err) {
+
+	app.use(expressSession({
+		secret: 'SECRET',
+		cookie: { maxAge: 60*60*1000 },
+		store: new mongoStore({
+			db: mongoose.connection.db,
+			collection: 'sessions'
+		}),
+		resave: true,
+		saveUninitialized: false
+	}));
+});
 
 require('./routes')(app);
-app.listen(80);
+
+app.listen(8081);
+
+console.log('listening 8081')
+
+
+
+
+
+
+
+

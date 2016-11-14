@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>User Login and Sessions</title>
+	<link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+	<div class="form-container" ng-controller="myController">
+		<p class="form-header">User Profiles</p>
+		<form action="/user/update" method="POST">
+			<label for="username">Username: </label>
+			 <input type="text" id="username" ng-model="user.username" disabled/><br>
+			<label for="email">email: </label>
+			 <input type="text" id="email" ng-model="user.email"/><br>
+			<label for="color">favorite color: </label>
+			 <input type="text" id="color" ng-model="user.color"/><br>
+			 <input type="submit" value="Save">
+		</form>
+	</div>
+	<form action="/user/delete">
+		<input type="submit" value="Delete User">
+	</form>
+	<hr>
+	<%= msg %>
+	<hr>
+	{{error}}
+	<script src="http;//code.angularjs.org/1.2.9/angular.min.js"></script>
+	<script src="/static/js/my_app.js"></script>
+</body>
+</html>
